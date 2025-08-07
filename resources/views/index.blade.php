@@ -284,7 +284,6 @@
 
                 if (data.success) {
                     sessionId = data.session_id;
-                    // document.getElementById('chatMessages').innerHTML = '';
                     const chatMessages = document.getElementById('chatMessages');
                     chatMessages.querySelectorAll('.message').forEach(el => el.remove());
 
@@ -312,7 +311,6 @@
 
                 if (data.success) {
                     if (data.data.is_completed) {
-                        // Chat completed, show services
                         addMessage(data.data.message);
                         if (data.data.services && data.data.services.length > 0) {
                             const servicesList = data.data.next_question.services.map(service =>
@@ -327,7 +325,6 @@
                         setStatus('Chat completed! You can restart to search for other services.');
                         toggleInput(false);
                     } else {
-                        // Show next question
                         currentQuestionKey = data.data.question_key;
                         addMessage(data.data.question);
                         setStatus('');
@@ -372,15 +369,12 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    // Add bot response
                     if (data.data.bot_response) {
                         addMessage(data.data.bot_response);
                     }
 
-                    // Handle next question or completion
                     if (data.data.next_question) {
                         if (data.data.next_question.is_completed) {
-                            // Chat completed
                             addMessage(data.data.next_question.message);
                             if (data.data.next_question.services && data.data.next_question.services.length > 0) {
                                 const servicesList = data.data.next_question.services.map(service =>
@@ -395,7 +389,6 @@
                             setStatus('Chat completed! You can restart to search for other services.');
                             toggleInput(false);
                         } else {
-                            // Next question
                             currentQuestionKey = data.data.next_question.question_key;
                             addMessage(data.data.next_question.question);
                             setStatus('');
@@ -463,7 +456,6 @@
             }
         }
 
-        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             toggleInput(false);
         });
